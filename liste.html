@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste d'achat</title>
+    <style>
+        *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+}
+.big-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    border-radius: 4px;
+    box-shadow: 10px 10px 3px rgb(171, 171, 183);
+    margin-left:300px;
+    margin-right: 300px;
+    margin-top: 100px;
+}
+.big-box >div:nth-child(1){
+    font-size: larger;
+    color: darkblue;
+    padding: 20px;
+}
+.big-box >div:nth-child(2)>input:nth-child(1){
+    margin-bottom: .5em;
+    width: auto;
+    height: 50px;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    text-align: right;
+    padding-right: .5em;
+    border-radius: 6px;
+    box-shadow: inset 8px 8px 8px #d2d2d2,
+                inset -8px -8px 8px #969696;
+    margin-right: 10px;
+}
+.big-box >div:nth-child(2)>button:nth-child(2){
+    width: 70px;
+    height: 45px;
+    font-size: 15px;
+    border: 2px solid rgb(88, 88, 88);
+    border-radius: 4px;
+    cursor: pointer;
+}
+.big-box >button:nth-child(3){
+    margin: 20px;
+    width: 70px;
+    height: 45px;
+    font-size: 15px;
+    border: 2px solid rgb(88, 88, 88);
+    border-radius: 4px;
+    cursor: pointer;
+} 
+.big-box >button:nth-child(3):hover{
+    color: #ffffff;
+    background:darkblue;
+}
+.big-box >div:nth-child(2)>button:nth-child(2):hover{
+    color: #ffffff;
+    background:darkblue;
+}
+.container-box{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+    </style>
+</head>
+<body>
+    <div class="big-box">
+        <div>Ma liste de tâches</div>
+        <div>
+            <input id="TheInput" type="text" placeholder="write !"><button id="AddToDo">ADD</button>
+        </div>
+        <button id="ClearAll">Clear all</button>
+    </div>
+    <div class="container-box" id="js-container-box">
+
+    </div>
+    <script>
+        let la_case_des_entres = document.getElementById('TheInput');
+        let le_resultat = document.getElementById('js-container-box');
+        let bouton_ajouter = document.getElementById('AddToDo');
+    
+        bouton_ajouter.addEventListener('click', function() {
+            if (la_case_des_entres.value.length === 0) {
+                alert("Please write something broooooooooooo!");
+            } else {
+                var paragraph = document.createElement('p');
+                paragraph.classList.add('paragraph-styling');
+    
+                var taskText = document.createTextNode(la_case_des_entres.value);
+                paragraph.appendChild(taskText);
+    
+                var deleteButton = document.createElement('button');
+                deleteButton.innerText = "Delete";
+                deleteButton.classList.add('delete-button');
+    
+                var editButton = document.createElement('button');
+                editButton.innerText = "Edit";
+                editButton.classList.add('edit-button');
+    
+                deleteButton.addEventListener('click', function() {
+                    le_resultat.removeChild(paragraph);
+                });
+    
+                editButton.addEventListener('click', function() {
+                    var updatedText = prompt("Edit the task:", taskText.textContent);
+                    if (updatedText !== null) {
+                        taskText.textContent = updatedText;
+                    }
+                });
+    
+                paragraph.appendChild(deleteButton);
+                paragraph.appendChild(editButton);
+    
+                le_resultat.appendChild(paragraph);
+    
+                la_case_des_entres.value = "";
+            }
+        });
+    </script>
+    
+</body>
+</html>
